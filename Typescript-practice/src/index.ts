@@ -77,6 +77,7 @@ let speed: number | null = null;
 let ride = {
     // Nullish coalescing operator
     // Null or Undefined
+    // To prevent case can't set speed of 0
     speed: speed ?? 30
 }
 
@@ -93,6 +94,46 @@ function render(document: unknown){
 }
 
 // Never type
-function processEvents(): never {
+// function processEvents(): never {
     
+// }
+
+
+class Account{
+    // readonly id:number;
+    // owner: string;
+    // private _balance: number;
+    // Optional
+    nickname?: string;
+
+    constructor(public readonly id: number, public owner: string, private _balance: number){
+        // this.id = id;
+        // this.owner = owner;
+        // this._balance = balance;
+    }
+
+    deposit(amount: number): void{
+        if (amount <= 0){
+            throw new Error('Invalid amount')
+        }
+        this._balance += amount;
+    }
+
+    get balance(): number{
+        return this._balance;
+    }
+
+    set balance(value: number){
+        value = 0;
+    }
 }
+
+let account = new Account(0, 'Me', 1000);
+
+
+// Index signature
+class SeatAssignment{
+    [seatNumber: string]: string;
+}
+let seats = new SeatAssignment();
+seats.A1 = 'Me'

@@ -137,3 +137,55 @@ class SeatAssignment{
 }
 let seats = new SeatAssignment();
 seats.A1 = 'Me'
+
+
+// Generic class/function/interface
+class kv<K, V>{
+    constructor(public k: K, public v: V){}
+}
+function doSth<T>(v: T){
+    return [v]
+}
+interface Result<T>{
+    data: T | null,
+    error: string | null
+}
+
+function fetch<T>(url: string): Result<T>{
+    return {data: null, error: null}
+}
+
+function echo<T extends {name: string}>(value: T): T{
+    return value;
+}
+
+interface Product(){
+    name: String;
+    price: Number;
+}
+class Store<T>{
+    protected _objects: T[] = [];
+
+    add(obj: T): void{
+        this._objects.push(obj);
+    }
+
+
+
+}
+// Exteding generic classes
+class CompressibleStore<T> extends Store<T>{
+    compress(){}
+}
+
+class SearchableStore<T> extends Store<T>{
+    find(name: string): T | undefined{
+        return this._objects.find(obj => obj.name === name);
+    }
+}
+
+
+// Type Mapping
+type ReadOnlyProduct = {
+    [Property in keyof Product]: Product[Property];
+}
